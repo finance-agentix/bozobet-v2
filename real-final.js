@@ -329,3 +329,131 @@
 
   window.addEventListener("resize", cleanDesktopIcons);
 })();
+
+// GAME LAUNCH HARD FIX V2
+window.rfOpenGame = async function (gameId) {
+  let currentUser = null;
+
+  try {
+    currentUser =
+      window.user ||
+      JSON.parse(localStorage.getItem("bozobet_user") || "null") ||
+      JSON.parse(localStorage.getItem("bozobet_current_user") || "null");
+  } catch (error) {
+    currentUser = window.user || null;
+  }
+
+  if (!currentUser) {
+    alert("Lütfen hesabınıza giriş yapın.");
+
+    if (typeof window.loginModal === "function") {
+      setTimeout(() => window.loginModal(), 100);
+    }
+
+    return;
+  }
+
+  if (!gameId) {
+    alert("Bu oyunun gameId bilgisi bulunamadı.");
+    return;
+  }
+
+  const rawUsername =
+    currentUser.username ||
+    currentUser.id ||
+    currentUser.email ||
+    "bozobetuser";
+
+  let username = String(rawUsername)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .slice(0, 32);
+
+  if (username.length < 4) {
+    username = "user" + Date.now().toString().slice(-8);
+  }
+
+  // Safari ve mobil tarayıcı pop-up engellemesin diye sekmeyi tıklama anında aç
+  const gameWindow = window.open("about:blank", "_blank");
+
+  if (gameWindow) {
+    gameWindow.document.write(`
+      <!doctype html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Oyun açılıyor</title>
+          <style>
+            body{
+              margin:0;
+              min-height:100vh;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              background:#07110c;
+              color:#65ff35;
+              font-family:Arial,sans-serif;
+              font-size:18px;
+              font-weight:800;
+            }
+          </style>
+        </head>
+        <body>Oyun açılıyor...</body>
+      </html>
+    `);
+  }
+
+  try {
+    const response = await fetch(
+      "https://bozobet-v2.vercel.app/api/game-url",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          gameId: String(gameId)
+        })
+      }
+    );
+
+    const responseText = await response.text();
+
+    let data;
+
+    try {
+      data = JSON.parse(responseText);
+    } catch (error) {
+      throw new Error("Sunucudan geçersiz cevap geldi: " + responseText.slice(0, 120));
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        data.message ||
+        "Oyun bağlantısı alınamadı."
+      );
+    }
+
+    if (!data.launchUrl) {
+      throw new Error("Sunucu oyun açılış adresi göndermedi.");
+    }
+
+    if (gameWindow && !gameWindow.closed) {
+      gameWindow.location.replace(data.launchUrl);
+    } else {
+      window.location.href = data.launchUrl;
+    }
+
+  } catch (error) {
+    console.error("Oyun açma hatası:", error);
+
+    if (gameWindow && !gameWindow.closed) {
+      gameWindow.close();
+    }
+
+    alert("Oyun açılamadı: " + error.message);
+  }
+};
