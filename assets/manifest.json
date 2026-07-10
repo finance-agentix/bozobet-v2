@@ -1,0 +1,191 @@
+[
+  {
+    "file": "logo/bozobet-logo-source.png",
+    "webp": "logo/bozobet-logo-source.webp",
+    "source": "a_set_of_logos_for_bozobet_an_online_betting_and.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "banners/home-hero.png",
+    "webp": "banners/home-hero.webp",
+    "source": "a_wide_cinematic_promotional_banner_in_a_dark_gre.png",
+    "size": [
+      1823,
+      863
+    ]
+  },
+  {
+    "file": "banners/sports-hero.png",
+    "webp": "banners/sports-hero.webp",
+    "source": "a_dark_cinematic_sportsbook_advertisement_banner.png",
+    "size": [
+      1774,
+      887
+    ]
+  },
+  {
+    "file": "banners/roulette-hero.png",
+    "webp": "banners/roulette-hero.webp",
+    "source": "a_wide_cinematic_casino_advertisement_banner_imag.png",
+    "size": [
+      1799,
+      874
+    ]
+  },
+  {
+    "file": "banners/slot-hero.png",
+    "webp": "banners/slot-hero.webp",
+    "source": "a_wide_neon_lit_casino_gaming_promotional_banner.png",
+    "size": [
+      1774,
+      887
+    ]
+  },
+  {
+    "file": "icons/categories/football.png",
+    "webp": "icons/categories/football.webp",
+    "source": "a_digital_illustration_in_a_photorealistic_and_gra.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "icons/categories/basketball.png",
+    "webp": "icons/categories/basketball.webp",
+    "source": "a_dramatic_highly_detailed_digital_cgi_illustrati.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/categories/tennis.png",
+    "webp": "icons/categories/tennis.webp",
+    "source": "a_highly_detailed_realistic_3d_render_digital_a.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/categories/esport.png",
+    "webp": "icons/categories/esport.webp",
+    "source": "a_stylized_high_tech_gaming_themed_illustration_3.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/categories/live-bet.png",
+    "webp": "icons/categories/live-bet.webp",
+    "source": "a_dramatic_high_detail_3d_digital_illustration_in.png",
+    "size": [
+      1312,
+      1199
+    ]
+  },
+  {
+    "file": "icons/categories/live-bet-badge.png",
+    "webp": "icons/categories/live-bet-badge.webp",
+    "source": "a_dramatic_high_detail_3d_digital_illustration.png",
+    "size": [
+      1332,
+      1181
+    ]
+  },
+  {
+    "file": "promos/welcome-bonus.png",
+    "webp": "promos/welcome-bonus.webp",
+    "source": "a_dramatic_high_contrast_promotional_3d_graphic_s.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "promos/freespin-250.png",
+    "webp": "promos/freespin-250.webp",
+    "source": "a_high_gloss_promotional_casino_bonus_style_graph.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "promos/loss-bonus.png",
+    "webp": "promos/loss-bonus.webp",
+    "source": "a_dramatic_promotional_graphic_advertisement_scene.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "promos/vip.png",
+    "webp": "promos/vip.webp",
+    "source": "a_glossy_high_energy_casino_bonus_promotional_ban.png",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "icons/trust/fast-deposit.png",
+    "webp": "icons/trust/fast-deposit.webp",
+    "source": "a_clean_high_resolution_3d_icon_badge_style_graph.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/trust/crypto-payment.png",
+    "webp": "icons/trust/crypto-payment.webp",
+    "source": "a_highly_detailed_glossy_3d_crypto_payment_icon_s.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/trust/support-247.png",
+    "webp": "icons/trust/support-247.webp",
+    "source": "a_crisp_high_detail_3d_glossy_icon_illustration_o.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/trust/secure-game.png",
+    "webp": "icons/trust/secure-game.webp",
+    "source": "a_high_resolution_stylized_3d_icon_graphic_on_a_b.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "icons/trust/fast-withdraw.png",
+    "webp": "icons/trust/fast-withdraw.webp",
+    "source": "a_sleek_high_detail_3d_icon_style_scene_on_a_dark.png",
+    "size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "reference/homepage-mockup.png",
+    "webp": "reference/homepage-mockup.webp",
+    "source": "a_high_resolution_promotional_ui_website_mockup.png",
+    "size": [
+      1536,
+      1024
+    ]
+  }
+]

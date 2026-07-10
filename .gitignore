@@ -1,0 +1,8 @@
+.DS_Store
+*.bak*
+*.backup*
+reset.html
+reset-popular.html
+seed-popular.html
+__pycache__/
+.venv/
