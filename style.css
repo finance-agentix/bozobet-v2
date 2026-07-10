@@ -7050,3 +7050,120 @@ body.site-ready .loader-screen{
     grid-template-columns:1fr;
   }
 }
+
+/* MOBILE LOGIN + HOME POPULAR PUBLISHED FIX */
+.bb-mobile-auth-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:auto;
+  z-index:9999;
+}
+
+.bb-mobile-auth-actions button{
+  height:38px;
+  border:0;
+  border-radius:999px;
+  padding:0 12px;
+  background:rgba(255,255,255,.09);
+  color:#fff;
+  font-weight:1000;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.bb-mobile-auth-actions button.join{
+  background:linear-gradient(135deg,#21d46b,#93ffb6);
+  color:#07110c;
+}
+
+.bb-home-popular-published .bb-home-popular-game-card{
+  position:relative;
+}
+
+.bb-home-popular-game-card small{
+  color:#58ff98;
+  font-size:13px;
+  font-weight:1000;
+  margin-top:-16px;
+}
+
+.bb-home-popular-static .bb-home-popular-game-art{
+  width:132px;
+  height:132px;
+  border-radius:28px;
+  overflow:hidden;
+  background:rgba(0,0,0,.22);
+  box-shadow:0 18px 40px rgba(0,0,0,.24);
+}
+
+.bb-home-popular-static .bb-home-popular-game-art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.82;
+  filter:saturate(1.18) contrast(1.08);
+}
+
+.bb-home-popular-static .bb-home-popular-game-art span{
+  position:absolute;
+  z-index:3;
+  font-size:50px;
+  filter:drop-shadow(0 10px 16px rgba(0,0,0,.45));
+}
+
+@media(max-width:760px){
+  header,
+  .topbar,
+  .navbar,
+  .site-header{
+    position:relative;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .bb-mobile-auth-actions{
+    width:100%;
+    justify-content:flex-end;
+    padding:4px 0 0;
+  }
+
+  .bb-mobile-auth-actions button{
+    height:36px;
+    font-size:12px;
+    padding:0 11px;
+  }
+
+  .bb-home-popular-games-fixed{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:12px !important;
+    padding:14px !important;
+  }
+
+  .bb-home-popular-game-card{
+    min-height:190px !important;
+    border-radius:20px !important;
+    gap:14px !important;
+  }
+
+  .bb-home-popular-static .bb-home-popular-game-art{
+    width:92px;
+    height:92px;
+    border-radius:20px;
+  }
+
+  .bb-home-popular-static .bb-home-popular-game-art span{
+    font-size:38px;
+  }
+
+  .bb-home-popular-game-card b{
+    font-size:17px !important;
+    line-height:1.1 !important;
+  }
+
+  .bb-home-popular-game-card small{
+    font-size:11px;
+    margin-top:-8px;
+  }
+}

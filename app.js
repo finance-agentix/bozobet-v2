@@ -9865,3 +9865,248 @@ window.addEventListener("load", () => {
 document.addEventListener("click", () => {
   setTimeout(bbReplaceHomePopularGames, 250);
 });
+
+// MOBILE LOGIN + HOME POPULAR FIX FOR PUBLISHED SITE
+function bbNotifyLoginRequired(){
+  if(typeof toast === "function"){
+    toast("Lütfen hesabınıza giriş yapın.");
+  }else{
+    alert("Lütfen hesabınıza giriş yapın.");
+  }
+
+  if(typeof loginModal === "function"){
+    setTimeout(loginModal, 150);
+  }
+}
+
+function bbOpenRegisterSafe(e){
+  if(e && typeof e.preventDefault === "function") e.preventDefault();
+  if(e && typeof e.stopPropagation === "function") e.stopPropagation();
+
+  if(typeof registerModal === "function"){
+    registerModal();
+    return false;
+  }
+
+  if(typeof openRegister === "function"){
+    openRegister();
+    return false;
+  }
+
+  alert("Üyelik ekranı bulunamadı.");
+  return false;
+}
+
+function bbOpenLoginSafe(e){
+  if(e && typeof e.preventDefault === "function") e.preventDefault();
+  if(e && typeof e.stopPropagation === "function") e.stopPropagation();
+
+  if(typeof loginModal === "function"){
+    loginModal();
+    return false;
+  }
+
+  alert("Giriş ekranı bulunamadı.");
+  return false;
+}
+
+const BB_HOME_POPULAR_STATIC = [
+  {
+    title:"SWEET BONANZA",
+    emoji:"🍬",
+    image:"https://img.freepik.com/free-vector/colorful-candy-background_23-2148966743.jpg",
+    names:["sweet bonanza","bonanza"]
+  },
+  {
+    title:"GATES OF OLYMPUS",
+    emoji:"⚡",
+    image:"https://img.freepik.com/free-vector/greek-columns-realistic-composition_1284-62383.jpg",
+    names:["gates of olympus","olympus"]
+  },
+  {
+    title:"BIG BASS",
+    emoji:"🎣",
+    image:"https://img.freepik.com/free-vector/fishing-concept-illustration_114360-1590.jpg",
+    names:["big bass","bass bonanza","big bass bonanza"]
+  },
+  {
+    title:"SUGAR RUSH",
+    emoji:"🍭",
+    image:"https://img.freepik.com/free-vector/sweet-candy-realistic-background_1284-12325.jpg",
+    names:["sugar rush"]
+  },
+  {
+    title:"AVIATOR",
+    emoji:"✈️",
+    image:"https://img.freepik.com/free-vector/airplane-sky-background_1308-30821.jpg",
+    names:["aviator"]
+  }
+];
+
+function bbFindGameByNamesSafe(names){
+  const games = typeof getBetApiGames === "function" ? getBetApiGames() : [];
+  const lowerNames = names.map(x => String(x).toLowerCase());
+
+  return games.find(g => {
+    const title = String(g.title || "").toLowerCase();
+    return lowerNames.some(n => title.includes(n));
+  }) || null;
+}
+
+function bbLaunchHomePopularGame(index){
+  const item = BB_HOME_POPULAR_STATIC[index];
+  if(!item) return;
+
+  if(!user){
+    bbNotifyLoginRequired();
+    return;
+  }
+
+  const apiGame = bbFindGameByNamesSafe(item.names);
+
+  if(apiGame && apiGame.gameId && typeof launchBetApiGame === "function"){
+    launchBetApiGame(apiGame.gameId);
+    return;
+  }
+
+  if(typeof renderCasino === "function"){
+    renderCasino();
+    setTimeout(() => {
+      const input = document.getElementById("betGameSearchInput");
+      if(input){
+        input.value = item.title;
+        if(typeof searchBetGames === "function") searchBetGames();
+      }
+    }, 250);
+    return;
+  }
+
+  alert("Oyun şu an hazırlanıyor.");
+}
+
+function bbHomePopularGameCardStaticHtml(g, index){
+  return `
+    <button class="bb-home-popular-game-card bb-home-popular-static" onclick="bbLaunchHomePopularGame(${index})">
+      <div class="bb-home-popular-game-art">
+        <img src="${g.image}" alt="${g.title}" loading="lazy" onerror="this.style.display='none'">
+        <span>${g.emoji}</span>
+      </div>
+      <b>${g.title}</b>
+      <small>Hemen Oyna</small>
+    </button>
+  `;
+}
+
+function bbReplaceHomePopularGamesPublished(){
+  const app = document.getElementById("app");
+  if(!app) return;
+
+  const headings = [...app.querySelectorAll("h1,h2,h3,b,strong,div,span")];
+
+  const title = headings.find(el => {
+    const text = String(el.textContent || "").trim().toLowerCase();
+    return text === "popüler oyunlar" || text.includes("popüler oyunlar");
+  });
+
+  if(!title) return;
+
+  const card =
+    title.closest(".card") ||
+    title.closest("section") ||
+    title.parentElement?.parentElement;
+
+  if(!card) return;
+
+  const old = card.querySelector(".bb-home-popular-games-fixed");
+  if(old) old.remove();
+
+  const header =
+    title.closest(".card-head") ||
+    title.parentElement;
+
+  [...card.children].forEach(child => {
+    if(child !== header){
+      child.remove();
+    }
+  });
+
+  card.insertAdjacentHTML("beforeend", `
+    <div class="bb-home-popular-games-fixed bb-home-popular-published">
+      ${BB_HOME_POPULAR_STATIC.map(bbHomePopularGameCardStaticHtml).join("")}
+    </div>
+  `);
+}
+
+function bbForceMobileAuthButtons(){
+  const header =
+    document.querySelector("header") ||
+    document.querySelector(".topbar") ||
+    document.querySelector(".navbar") ||
+    document.querySelector(".site-header");
+
+  if(!header) return;
+
+  if(document.querySelector(".bb-mobile-auth-actions")) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "bb-mobile-auth-actions";
+
+  if(user){
+    wrap.innerHTML = `
+      <button onclick="renderProfile && renderProfile()">Hesabım</button>
+    `;
+  }else{
+    wrap.innerHTML = `
+      <button onclick="bbOpenLoginSafe(event)">Giriş Yap</button>
+      <button class="join" onclick="bbOpenRegisterSafe(event)">Üye Ol</button>
+    `;
+  }
+
+  header.appendChild(wrap);
+}
+
+function bbGuardGameClicksForGuests(){
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest("button,a");
+    if(!btn) return;
+
+    const text = String(btn.textContent || "").trim().toLowerCase();
+    const onclick = String(btn.getAttribute("onclick") || "").toLowerCase();
+
+    const isGameAction =
+      text.includes("oyna") ||
+      onclick.includes("launchbetapigame") ||
+      onclick.includes("bblaunchhomepopulargame");
+
+    if(isGameAction && !user){
+      e.preventDefault();
+      e.stopPropagation();
+      bbNotifyLoginRequired();
+      return false;
+    }
+  }, true);
+}
+
+function bbAfterEveryRenderFix(){
+  setTimeout(bbReplaceHomePopularGamesPublished, 120);
+  setTimeout(bbForceMobileAuthButtons, 150);
+  setTimeout(bbReplaceHomePopularGamesPublished, 500);
+  setTimeout(bbForceMobileAuthButtons, 500);
+}
+
+if(typeof renderHome === "function"){
+  const oldRenderHomeMobilePublishedFix = renderHome;
+  renderHome = function(){
+    oldRenderHomeMobilePublishedFix();
+    bbAfterEveryRenderFix();
+  };
+}
+
+window.addEventListener("load", () => {
+  bbAfterEveryRenderFix();
+  bbGuardGameClicksForGuests();
+});
+
+document.addEventListener("click", () => {
+  setTimeout(bbForceMobileAuthButtons, 150);
+});
